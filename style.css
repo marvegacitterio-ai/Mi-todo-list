@@ -57,6 +57,7 @@ li {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    cursor: pointer;
 }
 
 body.dark li {
@@ -66,4 +67,9 @@ body.dark li {
 li.completada {
     text-decoration: line-through;
     opacity: 0.6;
+}
+
+li button {
+    background: red;
+    padding: 5px 10px;
 }
