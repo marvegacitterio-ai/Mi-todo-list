@@ -1,70 +1,36 @@
-let input = document.getElementById('tarea');
-let lista = document.getElementById('lista');
+let tareas = JSON.parse(localStorage.getItem('tareas')) || [];
 
 function agregar() {
-  if(input.value!= '') {
-    crearTarea(input.value);
-    input.value = '';
-    guardarTareas();
-  }
-}
-
-function crearTarea(texto) {
-  let li = document.createElement('li');
-  li.textContent = texto;
-
-  let btnBorrar = document.createElement('button');
-  btnBorrar.textContent = 'X';
-  btnBorrar.style.marginLeft = '10px';
-  btnBorrar.style.background = 'red';
-  btnBorrar.style.color = 'white';
-  btnBorrar.style.border = 'none';
-  btnBorrar.style.cursor = 'pointer';
-
-  btnBorrar.onclick = function(e) {
-    e.stopPropagation();
-    lista.removeChild(li);
-    actualizarContador();
-    guardarTareas();
-  }
-
-  li.addEventListener('click', function(e) {
-    if(e.target.tagName!== 'BUTTON') {
-      li.classList.toggle('tachada');
-      guardarTareas();
+    let input = document.getElementById('tarea');
+    if(input.value.trim()!== '') {
+        tareas.push({texto: input.value, hecha: false});
+        input.value = '';
+        guardarYMostrar();
     }
-  });
-
-  li.appendChild(btnBorrar);
-  lista.appendChild(li);
-  actualizarContador();
 }
 
-function guardarTareas() {
-  localStorage.setItem('tareas', lista.innerHTML);
+function guardarYMostrar() {
+    localStorage.setItem('tareas', JSON.stringify(tareas));
+    let lista = document.getElementById('lista');
+    lista.innerHTML = '';
+    tareas.forEach((t, i) => {
+        lista.innerHTML += `<li class="${t.hecha? 'completada' : ''}" onclick="toggle(${i})">${t.texto} <button onclick="borrar(${i}); event.stopPropagation()">X</button></li>`;
+    });
+    document.getElementById('contador').innerText = `Te quedan ${tareas.filter(t=>!t.hecha).length} tareas`;
 }
 
-function actualizarContador() {
-  let tareas = document.querySelectorAll('#lista li').length;
-  document.getElementById('contador').textContent = `Te quedan ${tareas} tareas`;
+function toggle(i) {
+    tareas[i].hecha =!tareas[i].hecha;
+    guardarYMostrar();
+}
+
+function borrar(i) {
+    tareas.splice(i, 1);
+    guardarYMostrar();
 }
 
 function cambiarModo() {
-  document.body.classList.toggle('modo-claro');
+    document.body.classList.toggle('dark');
 }
 
-// Cargar tareas guardadas y reconectar botones
-function cargarTareas() {
-  lista.innerHTML = localStorage.getItem('tareas') || '';
-  let items = lista.querySelectorAll('li');
-  items.forEach(li => {
-    let texto = li.childNodes[0].textContent;
-    lista.removeChild(li);
-    crearTarea(texto);
-    if(li.classList.contains('tachada')) {
-      lista.lastChild.classList.add('tachada');
-    }
-  });
-}
-
-cargarTareas();
+guardarYMostrar();
