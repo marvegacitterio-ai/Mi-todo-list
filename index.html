@@ -2,16 +2,21 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <title>Mi To-Do List</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mi lista de tareas</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <h1>Mi lista de tareas pendientes 🔥</h1>
-    <p id="contador">Te quedan 0 tareas</p>
+
     <button onclick="cambiarModo()">🌙 Modo oscuro</button>
-    <input id="tarea" placeholder="Escribí una tarea...">
+
+    <input type="text" id="tarea" placeholder="Escribí tu tarea...">
     <button onclick="agregar()">Agregar</button>
+
+    <p id="contador">Te quedan 0 tareas</p>
     <ul id="lista"></ul>
+
     <script src="script.js"></script>
 </body>
 </html>
