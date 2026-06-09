@@ -2,7 +2,7 @@
 
 function agregar() {
     let input = document.getElementById('tarea');
-    if(input.value.trim()!== '') {
+    if(input.value.trim() !== '') {
         tareas.push({texto: input.value, hecha: false});
         input.value = '';
         guardarYMostrar();
@@ -14,13 +14,13 @@ function guardarYMostrar() {
     let lista = document.getElementById('lista');
     lista.innerHTML = '';
     tareas.forEach((t, i) => {
-        lista.innerHTML += `<li class="${t.hecha? 'completada' : ''}" onclick="toggle(${i})">${t.texto} <button onclick="borrar(${i}); event.stopPropagation()">X</button></li>`;
+        lista.innerHTML += `<li class="${t.hecha ? 'completada' : ''}" onclick="toggle(${i})">${t.texto} <button onclick="borrar(${i}); event.stopPropagation()">X</button></li>`;
     });
-    document.getElementById('contador').innerText = `Te quedan ${tareas.filter(t =>!t.hecha).length} tareas`;
+    document.getElementById('contador').innerText = `Te quedan ${tareas.filter(t => !t.hecha).length} tareas`;
 }
 
 function toggle(i) {
-    tareas[i].hecha =!tareas[i].hecha;
+    tareas[i].hecha = !tareas[i].hecha;
     guardarYMostrar();
 }
 
