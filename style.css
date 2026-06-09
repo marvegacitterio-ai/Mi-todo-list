@@ -1,9 +1,0 @@
-li { margin: 5px 0; }
-button { cursor: pointer; }
-body { background: #1a1a1a; color: white; }
-body.modo-claro { background: white; color: black; }
-body.modo-claro button { background: #ddd; color: black; }
-.tachada {
-  text-decoration: line-through;
-  opacity: 0.5;
-}
