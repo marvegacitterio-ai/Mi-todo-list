@@ -1,4 +1,4 @@
-let tareas = JSON.parse(localStorage.getItem('tareas')) || [];
+ let tareas = JSON.parse(localStorage.getItem('tareas')) || [];
 
 function agregar() {
     let input = document.getElementById('tarea');
@@ -16,7 +16,7 @@ function guardarYMostrar() {
     tareas.forEach((t, i) => {
         lista.innerHTML += `<li class="${t.hecha? 'completada' : ''}" onclick="toggle(${i})">${t.texto} <button onclick="borrar(${i}); event.stopPropagation()">X</button></li>`;
     });
-    document.getElementById('contador').innerText = `Te quedan ${tareas.filter(t=>!t.hecha).length} tareas`;
+    document.getElementById('contador').innerText = `Te quedan ${tareas.filter(t =>!t.hecha).length} tareas`;
 }
 
 function toggle(i) {
